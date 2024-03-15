@@ -1,0 +1,49 @@
+### recuperar todas las peliculas 
+GET http://localhost:1234/movies
+
+### recuperar peliculas por id
+GET http://localhost:1234/movies/b6e03689-cccd-478e-8565-d92f40813b13
+
+### recuperar pelicula por genero
+GET http://localhost:1234/movies?genre=Crime
+
+### recuperar pelicula por nombre
+GET http://localhost:1234/movies?search=Pulp_Fiction
+
+### Crear una pelicula con POST
+POST http://localhost:1234/movies
+Content-Type: application/json
+
+{
+  "title": "The Godfather",
+  "year": 1975,
+  "director": "Francis Ford Coppola",
+  "duration": 175,
+  "poster": "https://img.fruugo.com/product/4/49/14441494_max.jpg",
+  "rate": 5,
+  "genre": [
+    "Crime",
+    "Drama"
+  ]
+}
+
+### Actualizar una pelicula 
+PATCH http://localhost:1234/movies/b6e03689-cccd-478e-8565-d92f40813b13
+Content-Type: application/json
+
+{
+  "year" : 1993
+}
+
+# Idempotencia: Propiedad de relaizar una accion determinada varia veces y aun asi, siempre conseguir el mismo resultado que se obtendria al hacerlo de manera repetida
+
+# Diferencias entre:...
+# *POST: Crear un nuevo elemento/recurso en el servidor.
+# ? Es idempotente? No, porque crea nuevos recusos
+# ! /movies
+# *PUT: Actualizar un elemento existente o crearlo si no existe.
+# ? Es idempotente? Si, el resultado siempre sera el mismo.
+# ! /movies/id
+# *PATCH: Actualizar parcialmente un elemento/recurso.
+# ! /movies/id
+# ? Es idempotente? En principio si, pero depende el caso.
